@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,26 +16,26 @@ spec:
         app: kavita
     spec:
       containers:
-      - name: kavita
-        image: jvmilazz0/kavita:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-          - containerPort: 5000
-            name: http
-        envFrom:
-          - configMapRef:
-              name: kavita
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "100m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-        volumeMounts:
-          - name: config
-            mountPath: /kavita/config
+        - name: kavita
+          image: jvmilazz0/kavita:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+              name: http
+          envFrom:
+            - configMapRef:
+                name: kavita
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          volumeMounts:
+            - name: config
+              mountPath: /kavita/config
       volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: kavita-pvc
+        - name: config
+          persistentVolumeClaim:
+            claimName: kavita-pvc

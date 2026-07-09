@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,26 +16,26 @@ spec:
         app: memos
     spec:
       containers:
-      - name: memos
-        image: neosmemo/memos:stable
-        imagePullPolicy: IfNotPresent
-        ports:
-          - containerPort: 5230
-            name: http
-        envFrom:
-          - configMapRef:
-              name: memos
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "100m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-        volumeMounts:
-          - name: data
-            mountPath: /var/opt/memos
+        - name: memos
+          image: neosmemo/memos:stable
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5230
+              name: http
+          envFrom:
+            - configMapRef:
+                name: memos
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          volumeMounts:
+            - name: data
+              mountPath: /var/opt/memos
       volumes:
-      - name: data
-        persistentVolumeClaim:
-          claimName: memos-pvc
+        - name: data
+          persistentVolumeClaim:
+            claimName: memos-pvc

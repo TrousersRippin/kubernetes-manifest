@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,17 +17,17 @@ spec:
         app: uptime-kuma
     spec:
       containers:
-      - name: uptime-kuma
-        image: louislam/uptime-kuma:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-          - containerPort: 3001
-        envFrom:
-          - configMapRef:
-              name: uptime-kuma
-        volumeMounts:
-          - name: data
-            mountPath: /app/data
+        - name: uptime-kuma
+          image: louislam/uptime-kuma:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3001
+          envFrom:
+            - configMapRef:
+                name: uptime-kuma
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
       volumes:
         - name: data
           persistentVolumeClaim:

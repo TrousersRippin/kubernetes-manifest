@@ -17,6 +17,7 @@ CA_CERT=$(kubectl config view --flatten --minify -o jsonpath='{.clusters[0].clus
 
 # Create the kubeconfig file
 cat > ${KUBECONFIG_FILE} <<EOF
+---
 apiVersion: v1
 kind: Config
 clusters:

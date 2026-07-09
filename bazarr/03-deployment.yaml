@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,42 +17,42 @@ spec:
         app: bazarr
     spec:
       containers:
-      - name: bazarr
-        image: lscr.io/linuxserver/bazarr:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-          - containerPort: 6767
-            name: http
-        envFrom:
-          - configMapRef:
-              name: bazarr
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "100m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 6767
-          initialDelaySeconds: 60
-          periodSeconds: 30
-          timeoutSeconds: 10
-          failureThreshold: 3
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 6767
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 3
-        volumeMounts:
-          - name: config
-            mountPath: /config
+        - name: bazarr
+          image: lscr.io/linuxserver/bazarr:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6767
+              name: http
+          envFrom:
+            - configMapRef:
+                name: bazarr
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 6767
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 6767
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          volumeMounts:
+            - name: config
+              mountPath: /config
       volumes:
-      - name: config
-        persistentVolumeClaim:
-          claimName: bazarr-pvc
+        - name: config
+          persistentVolumeClaim:
+            claimName: bazarr-pvc

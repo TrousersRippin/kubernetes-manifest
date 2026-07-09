@@ -1,6 +1,5 @@
 ---
 kind: Deployment
----
 apiVersion: apps/v1
 metadata:
   labels:
@@ -63,7 +62,6 @@ spec:
 
 ---
 kind: Deployment
----
 apiVersion: apps/v1
 metadata:
   labels:
@@ -98,8 +96,8 @@ spec:
             initialDelaySeconds: 30
             timeoutSeconds: 30
           volumeMounts:
-          - mountPath: /tmp
-            name: tmp-volume
+            - mountPath: /tmp
+              name: tmp-volume
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true

@@ -1,0 +1,76 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transmission
+  namespace: default
+  labels:
+    app: transmission
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transmission
+  template:
+    metadata:
+      labels:
+        app: transmission
+    spec:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+      containers:
+        - name: transmission
+          image: lscr.io/linuxserver/transmission:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9091
+              name: http
+            - containerPort: 51413
+              name: bittorrent-tcp
+              protocol: TCP
+            - containerPort: 51413
+              name: bittorrent-udp
+              protocol: UDP
+          envFrom:
+            - configMapRef:
+                name: transmission
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 9091
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9091
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: downloads
+              mountPath: /downloads
+            - name: watch
+              mountPath: /watch
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: transmission-config-pvc
+        - name: downloads
+          persistentVolumeClaim:
+            claimName: transmission-downloads-pvc
+        - name: watch
+          emptyDir: {}

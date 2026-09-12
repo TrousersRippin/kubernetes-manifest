@@ -1,9 +1,0 @@
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: audiobookshelf
-data:
-  TZ: "Europe/Stockholm"
-  ACCESS_TOKEN_EXPIRY: "604800"
-  REFRESH_TOKEN_EXPIRY: "2592000"

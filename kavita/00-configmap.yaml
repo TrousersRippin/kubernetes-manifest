@@ -1,9 +1,0 @@
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: kavita
-data:
-  TZ: "Europe/Stockholm"
-  PUID: "1000"
-  PGID: "1000"

@@ -1,8 +1,0 @@
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: memos
-data:
-  TZ: "Europe/Stockholm"
-  MEMOS_PORT: "5230"

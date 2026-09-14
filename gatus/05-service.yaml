@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gatus
+  namespace: monitoring
+  labels:
+    app: gatus
+spec:
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30899
+      name: http
+  selector:
+    app: gatus
